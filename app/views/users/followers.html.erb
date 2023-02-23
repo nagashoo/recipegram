@@ -1,0 +1,51 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        フォロワー
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="columns is-centered">
+          <div class="column is-4">
+            <table class="table text-center">
+              <% @users.each do |user| %>
+                <tr>
+                  <td class="column is-size-4">
+                    <figure class="image is-128x128"  style="margin-left: auto; margin-right: auto;">
+                      <%= attachment_image_tag user, :profile_image, fallback: "no-image.png", class: "profile_image is-rounded" %>
+                    </figure>
+                  </td>
+                  <td class="is-size-4">
+                    <%= link_to user_path(user) do %>
+                      <%= user.username %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if user != current_user %>
+                      <% if user.is_followed_by?(current_user) %>
+                        <%= button_to user_relationships_path(user), method: :delete do %>
+                          <button class="button is-danger">フォロー解除</button>
+                        <% end %>
+                      <% else %>
+                        <%= button_to user_relationships_path(user), method: :post do %>
+                          <button class="button is-link">フォロー</button>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
