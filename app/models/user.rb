@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true
 
+  has_many :reviews, dependent: :destroy
+
   has_many :relationships, foreign_key: :following_id
   has_many :followings, through: :relationships, source: :follower
 
